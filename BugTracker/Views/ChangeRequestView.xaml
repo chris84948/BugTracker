@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="BugTracker.Views.ChangeRequestView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Background="{DynamicResource WhiteBrush}"
+             d:DesignHeight="600"
+             d:DesignWidth="1200"
+             mc:Ignorable="d">
+
+    <Grid Margin="40,10,40,40">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Version Implemented Section  -->
+        <Label Grid.Row="0"
+               Grid.ColumnSpan="4"
+               Content="VERSION IMPLEMENTED" />
+        <AdornerDecorator Grid.Row="1"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="3">
+            <TextBox Height="30"
+                     TabIndex="6"
+                     Text="{Binding VersionImplemented,
+                                    UpdateSourceTrigger=PropertyChanged}" />
+        </AdornerDecorator>
+
+        <!--  Detailed Description  -->
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Grid.ColumnSpan="4"
+               Content="DETAILED DESCRIPTION" />
+        <AdornerDecorator Grid.Row="3"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="3">
+            <TextBox Grid.Row="3"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="3"
+                     Margin="0,3,20,7"
+                     VerticalAlignment="Stretch"
+                     VerticalContentAlignment="Top"
+                     AcceptsReturn="True"
+                     TabIndex="7"
+                     Text="{Binding DetailedDescription,
+                                    ValidatesOnDataErrors=True,
+                                    Mode=TwoWay,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    NotifyOnValidationError=True}"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto" />
+        </AdornerDecorator>
+
+        <!--  Justification  -->
+        <Label Grid.Row="4"
+               Grid.Column="0"
+               Grid.ColumnSpan="4"
+               Content="CHANGE JUSTIFICATION" />
+        <AdornerDecorator Grid.Row="5"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="3">
+            <TextBox Grid.Row="5"
+                     Grid.Column="1"
+                     Grid.ColumnSpan="3"
+                     Margin="0,3,20,7"
+                     VerticalAlignment="Stretch"
+                     VerticalContentAlignment="Top"
+                     AcceptsReturn="True"
+                     TabIndex="8"
+                     Text="{Binding Justification,
+                                    ValidatesOnDataErrors=True,
+                                    Mode=TwoWay,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    NotifyOnValidationError=True}"
+                     TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto" />
+        </AdornerDecorator>
+
+    </Grid>
+
+</UserControl>

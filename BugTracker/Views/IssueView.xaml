@@ -1,0 +1,229 @@
+﻿<UserControl x:Class="BugTracker.Views.IssueView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:com="clr-namespace:BugTracker.Common"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             Background="{DynamicResource WhiteBrush}"
+             Loaded="UserControl_Loaded"
+             d:DesignWidth="1000"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+
+        <sys:Int32 x:Key="IssueOpen">1</sys:Int32>
+        <sys:Int32 x:Key="IssueClosed">2</sys:Int32>
+
+        <Style x:Key="HideIssueResolutionColumns" TargetType="com:CollapsableColumn">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IssueState}" Value="{StaticResource IssueOpen}">
+                    <Setter Property="Visible" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+            <Setter Property="Visible" Value="True" />
+        </Style>
+
+        <Style x:Key="HideIssueInfoRow" TargetType="com:CollapsableRow">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IssueID}" Value="0">
+                    <Setter Property="Visible" Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+            <Setter Property="Visible" Value="True" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="40,10, 40, 0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="*" />
+            <com:CollapsableColumn Width="30" Style="{StaticResource HideIssueResolutionColumns}" />
+            <com:CollapsableColumn Width="*" Style="{StaticResource HideIssueResolutionColumns}" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <com:CollapsableRow Height="20" Style="{StaticResource HideIssueInfoRow}" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <!--  Bug Created/Closed Info Row  -->
+        <StackPanel Grid.Row="0"
+                    Grid.ColumnSpan="10"
+                    Margin="0,0,20,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
+            <StackPanel.Resources>
+                <Style BasedOn="{StaticResource {x:Type Label}}" TargetType="{x:Type Label}">
+                    <Setter Property="FontFamily" Value="{StaticResource UbuntuRegular}" />
+                    <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                    <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+                    <Setter Property="Padding" Value="0" />
+                </Style>
+            </StackPanel.Resources>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="ID #" />
+                <Label Content="{Binding IssueID, FallbackValue=254}" />
+                <Label Content=" Created By " />
+                <Label Content="{Binding UserCreated, FallbackValue=Chris Johnson}" />
+                <Label Content=", " />
+                <Label Content="{Binding DateCreated, Converter={StaticResource DateConverter}, FallbackValue=01/12/03}" />
+                <Label Content=". " />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IssueState}" Value="{StaticResource IssueOpen}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="Visibility" Value="Visible" />
+                    </Style>
+                </StackPanel.Style>
+
+                <Label Content="Closed By " />
+                <Label Content="{Binding UserClosed, FallbackValue=Chris Johnson}" />
+                <Label Content=", " />
+                <Label Content="{Binding DateClosed, Converter={StaticResource DateConverter}, FallbackValue=01/12/03}" />
+            </StackPanel>
+        </StackPanel>
+
+        <!--  Short Description Section  -->
+        <Label Grid.Row="1" Content="SHORT DESCRIPTION" />
+        <AdornerDecorator Grid.Row="2"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="9">
+            <TextBox Name="tbDescription"
+                     TabIndex="0"
+                     Text="{Binding Description,
+                                    UpdateSourceTrigger=PropertyChanged}" />
+        </AdornerDecorator>
+
+        <!--  Plant Contact Section  -->
+        <Label Grid.Row="3" Content="CONTACT" />
+        <AdornerDecorator Grid.Row="4" Grid.Column="1">
+            <TextBox Grid.Row="4"
+                     TabIndex="1"
+                     Text="{Binding PlantContact,
+                                    ValidatesOnDataErrors=True,
+                                    Mode=TwoWay,
+                                    UpdateSourceTrigger=PropertyChanged,
+                                    NotifyOnValidationError=True}" />
+        </AdornerDecorator>
+
+        <!--  Issue State Section  -->
+        <Label Grid.Row="3"
+               Grid.Column="2"
+               Content="ISSUE STATE" />
+        <ComboBox Grid.Row="4"
+                  Grid.Column="3"
+                  DisplayMemberPath="Description"
+                  ItemsSource="{Binding IssueStateList}"
+                  SelectedValue="{Binding IssueState}"
+                  SelectedValuePath="Value"
+                  TabIndex="2">
+
+            <ComboBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource {x:Type ComboBoxItem}}" TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="FontFamily" Value="{StaticResource UbuntuRegular}" />
+                    <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+                    <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
+
+            <ComboBox.Style>
+                <Style BasedOn="{StaticResource {x:Type ComboBox}}" TargetType="ComboBox">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IssueID}" Value="0">
+                            <Setter Property="IsEnabled" Value="False" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                    <Setter Property="IsEnabled" Value="True" />
+                </Style>
+            </ComboBox.Style>
+        </ComboBox>
+
+        <!--  Issue Resolution Section  -->
+        <Label Grid.Row="3"
+               Grid.Column="4"
+               Content="RESOLUTION" />
+        <ComboBox Grid.Row="4"
+                  Grid.Column="5"
+                  DisplayMemberPath="Description"
+                  ItemsSource="{Binding IssueResolutionList}"
+                  SelectedValue="{Binding IssueResolution,
+                                          ValidatesOnDataErrors=True,
+                                          UpdateSourceTrigger=PropertyChanged,
+                                          NotifyOnValidationError=True}"
+                  SelectedValuePath="Value"
+                  TabIndex="3">
+
+            <ComboBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource {x:Type ComboBoxItem}}" TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="FontFamily" Value="{StaticResource UbuntuRegular}" />
+                    <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+                    <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
+
+        </ComboBox>
+
+        <!--  Priority Section  -->
+        <Label Grid.Row="3"
+               Grid.Column="6"
+               Content="PRIORITY" />
+        <ComboBox Grid.Row="4"
+                  Grid.Column="7"
+                  DisplayMemberPath="Description"
+                  ItemsSource="{Binding PriorityList}"
+                  SelectedValue="{Binding Priority}"
+                  SelectedValuePath="Value"
+                  TabIndex="4">
+
+            <ComboBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource {x:Type ComboBoxItem}}" TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="FontFamily" Value="{StaticResource UbuntuRegular}" />
+                    <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+                    <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
+
+        </ComboBox>
+
+        <!--  Severity Section  -->
+        <Label Grid.Row="3"
+               Grid.Column="8"
+               Content="SEVERITY" />
+        <ComboBox Grid.Row="4"
+                  Grid.Column="9"
+                  DisplayMemberPath="Description"
+                  ItemsSource="{Binding SeverityList}"
+                  SelectedValue="{Binding Severity}"
+                  SelectedValuePath="Value"
+                  TabIndex="5">
+
+            <ComboBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource {x:Type ComboBoxItem}}" TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="FontFamily" Value="{StaticResource UbuntuRegular}" />
+                    <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+                    <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
+
+        </ComboBox>
+    </Grid>
+</UserControl>

@@ -1,0 +1,195 @@
+﻿<metro:MetroWindow x:Class="BugTracker.Views.ShellView"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+                   xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                   xmlns:res="clr-namespace:BugTracker.Resources"
+                   xmlns:view="clr-namespace:BugTracker.Views"
+                   xmlns:vm="clr-namespace:BugTracker.ViewModels"
+                   Title="Bug Tracker"
+                   Width="1200"
+                   Height="800"
+                   MinWidth="1200"
+                   MinHeight="800"
+                   Background="{DynamicResource WhiteBrush}"
+                   BorderBrush="{DynamicResource AccentColorBrush}"
+                   BorderThickness="1"
+                   Dialog:DialogParticipation.Register="{Binding}"
+                   TitleForeground="{DynamicResource WhiteBrush}">
+
+    <metro:MetroWindow.DataContext>
+        <vm:ShellViewModel />
+    </metro:MetroWindow.DataContext>
+
+    <metro:MetroWindow.Flyouts>
+        <metro:FlyoutsControl>
+            <metro:Flyout Name="Flyout"
+                          Height="75"
+                          Background="{DynamicResource AccentColorBrush}"
+                          CloseButtonVisibility="Collapsed"
+                          IsPinned="False"
+                          Position="Bottom"
+                          TitleVisibility="Collapsed">
+                <!--  Your custom content here  -->
+            </metro:Flyout>
+        </metro:FlyoutsControl>
+    </metro:MetroWindow.Flyouts>
+
+    <metro:MetroWindow.RightWindowCommands>
+        <metro:WindowCommands>
+
+            <Button x:Name="SaveSingleTabCommand"
+                    Command="{Binding SelectedTab.SaveTabCommand}"
+                    Visibility="{Binding SelectedTab.IsDirty,
+                                         Converter={StaticResource BoolToCollapsed}}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="12"
+                               Height="12"
+                               Fill="{Binding Path=Foreground,
+                                              ElementName=SaveSingleTabsText}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Name="SaveSingleTabsText"
+                               Margin="5,0,0,0"
+                               Style="{DynamicResource TitleBarButtonStyle}"
+                               Text="SAVE" />
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="SaveAllTabsCommand"
+                    Command="{Binding SaveAllTabsCommand}"
+                    Visibility="{Binding AnyTabsDirty,
+                                         Converter={StaticResource BoolToCollapsed}}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="12"
+                               Height="12"
+                               Fill="{Binding Path=Foreground,
+                                              ElementName=SaveAllTabsCommand}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_save}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Name="SaveAllTabsText"
+                               Margin="5,0,0,0"
+                               Style="{DynamicResource TitleBarButtonStyle}"
+                               Text="SAVE ALL" />
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="AddBugCommand" Command="{Binding AddBugCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="12"
+                               Height="12"
+                               Fill="{Binding Path=Foreground,
+                                              ElementName=AddBugText}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_bug}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Name="AddBugText"
+                               Margin="5,0,0,0"
+                               Style="{DynamicResource TitleBarButtonStyle}"
+                               Text="NEW BUG" />
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="AddChangeRequestCommand" Command="{Binding AddChangeRequestCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="12"
+                               Height="12"
+                               Fill="{Binding Path=Foreground,
+                                              ElementName=AddChangeRequestText}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add_multiple}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Name="AddChangeRequestText"
+                               Margin="5,0,0,0"
+                               Style="{DynamicResource TitleBarButtonStyle}"
+                               Text="NEW CHANGE REQUEST" />
+                </StackPanel>
+            </Button>
+
+            <Button x:Name="SettingsButton" Click="SettingsButton_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="12"
+                               Height="12"
+                               Fill="{Binding Path=Foreground,
+                                              ElementName=SettingsText}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add_multiple}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Name="SettingsText"
+                               Margin="5,0,0,0"
+                               Style="{DynamicResource TitleBarButtonStyle}"
+                               Text="SETTINGS" />
+                </StackPanel>
+            </Button>
+
+        </metro:WindowCommands>
+    </metro:MetroWindow.RightWindowCommands>
+
+    <metro:MetroAnimatedTabControl Name="TabControl"
+                                   Margin="10,2"
+                                   ItemsSource="{Binding Tabs}"
+                                   SelectedIndex="{Binding SelectedIndex}"
+                                   SelectedItem="{Binding SelectedTab}">
+        <metro:MetroAnimatedTabControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel MouseDown="Button_MouseDown"
+                            Orientation="Horizontal"
+                            ToolTip="{Binding Description}">
+
+                    <TextBlock Name="tbHeader"
+                               FontFamily="{StaticResource UbuntuRegular}"
+                               FontSize="18"
+                               Text="{Binding TabHeader}" />
+
+                    <Button Margin="1"
+                            VerticalAlignment="Top"
+                            Command="{Binding CloseTabCommand}">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource ChromelessButtonStyle}" TargetType="Button">
+                                <Setter Property="Visibility" Value="Hidden" />
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type metro:MetroTabItem}}, Path=IsMouseOver}" Value="True" />
+                                            <Condition Binding="{Binding ShowCloseButton}" Value="True" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </MultiDataTrigger>
+
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type metro:MetroTabItem}}, Path=IsMouseOver}" Value="False" />
+                                            <Condition Binding="{Binding ShowCloseButton}" Value="True" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Hidden" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+
+                        <Rectangle Width="9"
+                                   Height="9"
+                                   Fill="{Binding Path=Foreground,
+                                                  ElementName=tbHeader}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_close}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+
+                </StackPanel>
+            </DataTemplate>
+        </metro:MetroAnimatedTabControl.ItemTemplate>
+
+    </metro:MetroAnimatedTabControl>
+
+</metro:MetroWindow>
