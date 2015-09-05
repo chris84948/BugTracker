@@ -168,16 +168,6 @@ namespace BugTracker.ViewModels
 
         private void AddChangeRequest()
         {
-            //Settings.Default.LightTheme = false;
-            //Settings.Default.Save();
-            //System.Threading.Thread.Sleep(1000);
-
-            //Process.Start(Application.ResourceAssembly.Location);
-            //Application.Current.Shutdown();
-            ThemeManager.ChangeAppStyle(Application.Current, 
-                                        ThemeManager.GetAccent("DarkThemeAccent"), 
-                                        ThemeManager.GetAppTheme("DarkTheme"));
-
             Tabs.Add(new TabChangeRequestViewModel(messenger, dialogCoordinator, dataAccess));
             SelectedIndex = Tabs.Count - 1;
         }

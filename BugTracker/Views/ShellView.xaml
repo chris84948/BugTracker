@@ -29,10 +29,12 @@
                           Height="75"
                           Background="{DynamicResource AccentColorBrush}"
                           CloseButtonVisibility="Collapsed"
+                          
                           IsPinned="False"
-                          Position="Bottom"
+                          Position="Top"
+                          Theme="Accent"
                           TitleVisibility="Collapsed">
-                <!--  Your custom content here  -->
+                <view:SettingsView />
             </metro:Flyout>
         </metro:FlyoutsControl>
     </metro:MetroWindow.Flyouts>

@@ -23,22 +23,10 @@ namespace BugTracker
             ThemeManager.AddAppTheme("DarkTheme", new Uri(@"pack://application:,,,/Resources\Themes\DarkTheme.xaml"));
             ThemeManager.AddAccent("LightThemeAccent", new Uri(@"pack://application:,,,/Resources\Themes\LightThemeAccent.xaml"));
             ThemeManager.AddAccent("DarkThemeAccent", new Uri(@"pack://application:,,,/Resources\Themes\DarkThemeAccent.xaml"));
-
-            // get the theme from the current application
-            var theme = ThemeManager.DetectAppStyle(Application.Current);
-                        
-            if (Settings.Default.LightTheme)
-            {
-                ThemeManager.ChangeAppStyle(Application.Current,
-                                            ThemeManager.GetAccent("LightThemeAccent"),
-                                            ThemeManager.GetAppTheme("LightTheme"));
-            }
-            else
-            {
-                ThemeManager.ChangeAppStyle(Application.Current,
-                                            ThemeManager.GetAccent("DarkThemeAccent"),
-                                            ThemeManager.GetAppTheme("DarkTheme"));
-            }
+     
+            ThemeManager.ChangeAppStyle(Application.Current,
+                    ThemeManager.GetAccent(Settings.Default.LightTheme ? "LightThemeAccent" : "DarkThemeAccent"),
+                    ThemeManager.GetAppTheme(Settings.Default.LightTheme ? "LightTheme" : "DarkTheme"));
             
             base.OnStartup(e);
         }
