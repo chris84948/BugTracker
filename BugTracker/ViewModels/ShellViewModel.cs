@@ -12,6 +12,8 @@ using MahApps.Metro.Controls.Dialogs;
 using MahApps.Metro;
 using BugTracker.Properties;
 using System.Diagnostics;
+using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace BugTracker.ViewModels
 {
@@ -97,12 +99,45 @@ namespace BugTracker.ViewModels
 
             dialogCoordinator = DialogCoordinator.Instance;
 
+            Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
+
             dataAccess = new SQLiteController();
 
             Tabs = new ObservableCollection<ScreenBase>();
             Tabs.Add(new TabAllIssuesViewModel(messenger, dialogCoordinator, dataAccess));
                         
             SelectedTab = Tabs[0];
+        }
+
+        async void MainWindow_Closing(object sender, CancelEventArgs e)
+        {
+            if (AnyTabsDirty)
+            {
+                e.Cancel = true;
+                if (await ShouldApplicationClose())
+                    Application.Current.Shutdown();
+            }
+        }
+
+        private async Task<bool> ShouldApplicationClose()
+        {
+            var result = await Dialogs.GetUserConfirmationOnClosing(dialogCoordinator, SelectedTab);
+
+            if (result == MessageDialogResult.Affirmative)
+            {
+                SaveAllTabs();  // Close app
+                return true;
+            }
+            else if (result == MessageDialogResult.Negative)
+            {
+                // Don't save tabs, still close app
+                return true;
+            }
+            else
+            {
+                // Don't save tabs, don't close app
+                return false;
+            }
         }
 
         private void OpenOrLocateIssueInTabs(int issueID)
