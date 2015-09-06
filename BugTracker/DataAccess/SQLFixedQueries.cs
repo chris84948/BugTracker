@@ -113,13 +113,13 @@ namespace BugTracker.DataAccess
 
                      FROM
                          Issues issues
-                         INNER JOIN Users userCreated ON (issues.UserCreatedID = userCreated.ID)
-                         INNER JOIN Users userClosed ON (issues.UserClosedID = userClosed.ID)
-                         INNER JOIN IssueType issueType ON (issues.IssueTypeID = issueType.ID)
-                         INNER JOIN IssueState issueState ON (issues.IssueStateID = issueState.ID)
-                         INNER JOIN Priority priority ON (issues.PriorityID = priority.ID)
-                         INNER JOIN Severity severity ON (issues.SeverityID = severity.ID)
-                         INNER JOIN IssueResolution issueResolution ON (issues.IssueResolutionID = issueResolution.ID);";
+                         LEFT JOIN Users userCreated ON (issues.UserCreatedID = userCreated.ID)
+                         LEFT JOIN Users userClosed ON (issues.UserClosedID = userClosed.ID)
+                         LEFT JOIN IssueType issueType ON (issues.IssueTypeID = issueType.ID)
+                         LEFT JOIN IssueState issueState ON (issues.IssueStateID = issueState.ID)
+                         LEFT JOIN Priority priority ON (issues.PriorityID = priority.ID)
+                         LEFT JOIN Severity severity ON (issues.SeverityID = severity.ID)
+                         LEFT JOIN IssueResolution issueResolution ON (issues.IssueResolutionID = issueResolution.ID);";
         }
 
         public static string CreateDefaultData()

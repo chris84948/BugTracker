@@ -95,6 +95,14 @@
 
             <conv:ListviewWidthConverter x:Key="ListviewWidthConverter" />
 
+            <conv:ListCountToVisConverter x:Key="ListCountToVisConverter"
+                                          FalseValue="Hidden"
+                                          TrueValue="Visible" />
+            
+            <conv:ListCountToVisConverter x:Key="InverseListCountToVisConverter"
+                                          FalseValue="Visible"
+                                          TrueValue="Hidden" />
+
         </ResourceDictionary>
 
     </Application.Resources>

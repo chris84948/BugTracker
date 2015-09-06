@@ -7,6 +7,7 @@ using System.Data.SQLite;
 using System.IO;
 using BugTracker.Model;
 using BugTracker.ViewModels;
+using BugTracker.Properties;
 
 namespace BugTracker.DataAccess
 {
@@ -16,8 +17,8 @@ namespace BugTracker.DataAccess
     /// </summary>
     class SQLiteController : IDataAccess
     {
-        private const string DB_FILENAME = "bugtracker.db";
-        private string CONNECTION_STRING = String.Format("Data Source={0};Version=3;", DB_FILENAME);
+        private const string CONNECTION_STRING_BASE = "Data Source={0};Version=3;";
+        private string connectionString;
         private SQLiteConnection conn;
 
         /// <summary>
@@ -25,7 +26,13 @@ namespace BugTracker.DataAccess
         /// </summary>
         public SQLiteController()
         {
-            if (!File.Exists(DB_FILENAME))
+            if (String.IsNullOrEmpty(Settings.Default.DBLocation))
+                Settings.Default.DBLocation = Path.GetDirectoryName(
+                                System.Reflection.Assembly.GetExecutingAssembly().Location) + @"\BugTracker.db";
+
+            connectionString = String.Format("Data Source={0};Version=3;", Settings.Default.DBLocation);
+
+            if (!File.Exists(Settings.Default.DBLocation))
                 CreateDatabase();
         }
 
@@ -34,22 +41,22 @@ namespace BugTracker.DataAccess
         /// </summary>
         private void CreateDatabase()
         {
-            SQLiteConnection.CreateFile(DB_FILENAME);
+            SQLiteConnection.CreateFile(Settings.Default.DBLocation);
 
-            using (conn = new SQLiteConnection(CONNECTION_STRING))
+            using (conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
                 new SQLiteCommand(SQLFixedQueries.CreateTables(), conn).ExecuteNonQuery();
                 new SQLiteCommand(SQLFixedQueries.CreateViews(), conn).ExecuteNonQuery();
                 new SQLiteCommand(SQLFixedQueries.CreateDefaultData(), conn).ExecuteNonQuery();
-                new SQLiteCommand(SQLFixedQueries.InsertTestData(), conn).ExecuteNonQuery(); //TODO remove this when releasing
+                //new SQLiteCommand(SQLFixedQueries.InsertTestData(), conn).ExecuteNonQuery(); //TODO remove this when releasing
             }
         }
 
         List<IssueViewModel> IDataAccess.GetAllIssues(string filter)
         {
-            using (conn = new SQLiteConnection(CONNECTION_STRING))
+            using (conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
@@ -67,7 +74,7 @@ namespace BugTracker.DataAccess
 
         IssueViewModel IDataAccess.GetIssue(int id)
         {
-            using (conn = new SQLiteConnection(CONNECTION_STRING))
+            using (conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
@@ -85,7 +92,7 @@ namespace BugTracker.DataAccess
 
         Bug IDataAccess.GetBug(int id)
         {
-            using (conn = new SQLiteConnection(CONNECTION_STRING))
+            using (conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
@@ -103,7 +110,7 @@ namespace BugTracker.DataAccess
 
         ChangeRequest IDataAccess.GetChangeRequest(int id)
         {
-            using (conn = new SQLiteConnection(CONNECTION_STRING))
+            using (conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
@@ -121,7 +128,7 @@ namespace BugTracker.DataAccess
 
         int IDataAccess.SaveBug(Issue issue, Bug bug)
         {
-            using (conn = new SQLiteConnection(CONNECTION_STRING))
+            using (conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 
@@ -142,7 +149,7 @@ namespace BugTracker.DataAccess
 
         int IDataAccess.SaveChangeRequest(Issue issue, ChangeRequest changeRequest)
         {
-            using (conn = new SQLiteConnection(CONNECTION_STRING))
+            using (conn = new SQLiteConnection(connectionString))
             {
                 conn.Open();
 

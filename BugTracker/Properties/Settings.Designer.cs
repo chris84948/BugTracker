@@ -34,5 +34,17 @@ namespace BugTracker.Properties {
                 this["LightTheme"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DBLocation {
+            get {
+                return ((string)(this["DBLocation"]));
+            }
+            set {
+                this["DBLocation"] = value;
+            }
+        }
     }
 }

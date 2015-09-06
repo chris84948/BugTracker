@@ -43,6 +43,10 @@
         <Setter Property="FontSize" Value="13" />
     </Style>
 
+    <Style TargetType="{x:Type Hyperlink}">
+        <Setter Property="TextDecorations" Value="None" />
+    </Style>
+
     <Style x:Key="helpTextBlockStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
         <Setter Property="FontFamily" Value="{StaticResource UbuntuRegular}" />

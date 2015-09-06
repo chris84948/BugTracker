@@ -26,10 +26,9 @@
     <metro:MetroWindow.Flyouts>
         <metro:FlyoutsControl>
             <metro:Flyout Name="Flyout"
-                          Height="75"
+                          Height="100"
                           Background="{DynamicResource AccentColorBrush}"
                           CloseButtonVisibility="Collapsed"
-                          
                           IsPinned="False"
                           Position="Top"
                           Theme="Accent"

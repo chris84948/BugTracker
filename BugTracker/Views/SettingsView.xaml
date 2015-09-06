@@ -5,9 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:vm="clr-namespace:BugTracker.ViewModels"
-             d:DesignHeight="75"
+             d:DesignHeight="100"
              d:DesignWidth="1200"
              mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+    </UserControl.Resources>
 
     <UserControl.DataContext>
         <vm:SettingsViewModel />
@@ -16,13 +20,36 @@
     <Grid Margin="100,0,100,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center"
+                       Foreground="{DynamicResource WhiteBrush}"
+                       Text="DATABASE FILE" />
+            <TextBox Width="550"
+                     Margin="20,0,0,0"
+                     VerticalAlignment="Center"
+                     IsReadOnly="True"
+                     Text="{Binding DBLocation}" />
+            <TextBlock Margin="15,0,0,0" VerticalAlignment="Center">
+                <Hyperlink Command="{Binding MoveDBCommand}"
+                           FontFamily="{StaticResource UbuntuRegular}"
+                           FontSize="{StaticResource FontSize}"
+                           Foreground="{DynamicResource WhiteColorBrush}"
+                           TextDecorations="None">
+                    MOVE
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
 
         <StackPanel Grid.Row="1"
                     Grid.Column="1"

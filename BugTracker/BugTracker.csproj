@@ -95,6 +95,7 @@
     <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\IssueStateConverter.cs" />
     <Compile Include="Converters\IssueTypeConverter.cs" />
+    <Compile Include="Converters\ListCountToVisConverter.cs" />
     <Compile Include="Converters\ListviewWidthConverter.cs" />
     <Compile Include="Converters\PriorityConverter.cs" />
     <Compile Include="Converters\SeverityConverter.cs" />

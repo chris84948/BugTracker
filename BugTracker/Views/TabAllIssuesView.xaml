@@ -10,155 +10,186 @@
              d:DesignWidth="1200"
              mc:Ignorable="d">
 
-    <Grid Margin="40,20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid>
 
-        <!--  Short Description Section  -->
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <DockPanel>
-                <TextBox Name="tbFilter"
-                         Width="600"
-                         Height="28"
-                         Margin="0"
-                         VerticalAlignment="Center"
-                         Text="{Binding Filter,
-                                        UpdateSourceTrigger=PropertyChanged}"
-                         TextChanged="TextBox_TextChanged"
-                         metro:TextBoxHelper.ClearTextButton="True" />
+        <!--  Listview showing all items  -->
+        <Grid Margin="40,20" Visibility="{Binding AllIssues, Converter={StaticResource ListCountToVisConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-                <metro:DropDownButton Width="100"
-                                      Height="28"
-                                      Margin="20,0,0,0"
-                                      HorizontalAlignment="Right"
-                                      VerticalAlignment="Center"
-                                      VerticalContentAlignment="Center"
-                                      Content="Add Filter"
-                                      FontFamily="{StaticResource UbuntuRegular}"
-                                      FontSize="{StaticResource FontSize}"
-                                      Foreground="{DynamicResource AccentColorBrush}"
-                                      ItemsSource="{Binding DropdownCommands}">
+            <!--  Short Description Section  -->
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <DockPanel>
+                    <TextBox Name="tbFilter"
+                             Width="600"
+                             Height="28"
+                             Margin="0"
+                             VerticalAlignment="Center"
+                             Text="{Binding Filter,
+                                            UpdateSourceTrigger=PropertyChanged}"
+                             TextChanged="TextBox_TextChanged"
+                             metro:TextBoxHelper.ClearTextButton="True" />
 
-                    <metro:DropDownButton.ItemContainerStyle>
-                        <Style TargetType="MenuItem">
-                            <Setter Property="Header" Value="{Binding Path=Title}" />
-                            <Setter Property="Command" Value="{Binding Path=Command}" />
-                            <Setter Property="Padding" Value="6" />
-                            <Setter Property="FontSize" Value="{StaticResource FontSize}" />
-                            <Setter Property="FontFamily" Value="{StaticResource UbuntuRegular}" />
-                            <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
-                        </Style>
-                    </metro:DropDownButton.ItemContainerStyle>
-                </metro:DropDownButton>
+                    <metro:DropDownButton Width="100"
+                                          Height="28"
+                                          Margin="20,0,0,0"
+                                          HorizontalAlignment="Right"
+                                          VerticalAlignment="Center"
+                                          VerticalContentAlignment="Center"
+                                          Content="Add Filter"
+                                          FontFamily="{StaticResource UbuntuRegular}"
+                                          FontSize="{StaticResource FontSize}"
+                                          Foreground="{DynamicResource AccentColorBrush}"
+                                          ItemsSource="{Binding DropdownCommands}">
 
-                <res:HelpPopup Margin="10,0,0,0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontFamily="{StaticResource UbuntuRegular}"
-                               PopupContent="{StaticResource helpSearch}" />
-            </DockPanel>
-        </StackPanel>
+                        <metro:DropDownButton.ItemContainerStyle>
+                            <Style TargetType="MenuItem">
+                                <Setter Property="Header" Value="{Binding Path=Title}" />
+                                <Setter Property="Command" Value="{Binding Path=Command}" />
+                                <Setter Property="Padding" Value="6" />
+                                <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+                                <Setter Property="FontFamily" Value="{StaticResource UbuntuRegular}" />
+                                <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                            </Style>
+                        </metro:DropDownButton.ItemContainerStyle>
+                    </metro:DropDownButton>
 
-        <ListView Name="listviewIssues"
-                  Grid.Row="1"
-                  Margin="0,20,0,0"
-                  HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch"
-                  HorizontalContentAlignment="Left"
-                  VerticalContentAlignment="Top"
-                  BorderThickness="0"
-                  FontFamily="{StaticResource UbuntuRegular}"
-                  FontSize="{StaticResource FontSize}"
-                  Foreground="{DynamicResource AccentColorBrush}"
-                  ItemsSource="{Binding AllIssues}"
-                  MouseDoubleClick="listview_MouseDoubleClick">
+                    <res:HelpPopup Margin="10,0,0,0"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
+                                   FontFamily="{StaticResource UbuntuRegular}"
+                                   PopupContent="{StaticResource helpSearch}" />
+                </DockPanel>
+            </StackPanel>
 
-            <ListView.ItemContainerStyle>
-                <Style BasedOn="{StaticResource {x:Type ListViewItem}}" TargetType="ListViewItem">
-                    <Setter Property="FontFamily" Value="{StaticResource UbuntuRegular}" />
-                    <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
-                </Style>
-            </ListView.ItemContainerStyle>
+            <ListView Name="listviewIssues"
+                      Grid.Row="1"
+                      Margin="0,20,0,0"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      HorizontalContentAlignment="Left"
+                      VerticalContentAlignment="Top"
+                      BorderThickness="0"
+                      FontFamily="{StaticResource UbuntuRegular}"
+                      FontSize="{StaticResource FontSize}"
+                      Foreground="{DynamicResource AccentColorBrush}"
+                      ItemsSource="{Binding AllIssues}"
+                      MouseDoubleClick="listview_MouseDoubleClick">
 
-            <ListView.View>
-                <GridView AllowsColumnReorder="False"
-                          RenderOptions.ClearTypeHint="Enabled"
-                          TextOptions.TextFormattingMode="Display">
+                <ListView.ItemContainerStyle>
+                    <Style BasedOn="{StaticResource {x:Type ListViewItem}}" TargetType="ListViewItem">
+                        <Setter Property="FontFamily" Value="{StaticResource UbuntuRegular}" />
+                        <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                    </Style>
+                </ListView.ItemContainerStyle>
 
-                    <GridViewColumn Width="50" DisplayMemberBinding="{Binding IssueID}">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Click="ListViewColumnHeader_Click"
-                                                  Foreground="{DynamicResource AccentColorBrush}"
-                                                  Tag="IssueID">
-                                ID
-                            </GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
+                <ListView.View>
+                    <GridView AllowsColumnReorder="False"
+                              RenderOptions.ClearTypeHint="Enabled"
+                              TextOptions.TextFormattingMode="Display">
 
-                    <GridViewColumn Width="150" DisplayMemberBinding="{Binding IssueType, Converter={StaticResource IssueTypeConverter}}">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Click="ListViewColumnHeader_Click"
-                                                  Foreground="{DynamicResource AccentColorBrush}"
-                                                  Tag="IssueType">
-                                Issue Type
-                            </GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
+                        <GridViewColumn Width="50" DisplayMemberBinding="{Binding IssueID}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Click="ListViewColumnHeader_Click"
+                                                      Foreground="{DynamicResource AccentColorBrush}"
+                                                      Tag="IssueID">
+                                    ID
+                                </GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
 
-                    <GridViewColumn Width="75" DisplayMemberBinding="{Binding IssueState, Converter={StaticResource IssueStateConverter}}">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Click="ListViewColumnHeader_Click"
-                                                  Foreground="{DynamicResource AccentColorBrush}"
-                                                  Tag="IssueState">
-                                State
-                            </GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
+                        <GridViewColumn Width="150" DisplayMemberBinding="{Binding IssueType, Converter={StaticResource IssueTypeConverter}}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Click="ListViewColumnHeader_Click"
+                                                      Foreground="{DynamicResource AccentColorBrush}"
+                                                      Tag="IssueType">
+                                    Issue Type
+                                </GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
 
-                    <GridViewColumn Width="{Binding ElementName=listviewIssues, Path=ActualWidth, Converter={StaticResource ListviewWidthConverter}}" DisplayMemberBinding="{Binding Description}">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Click="ListViewColumnHeader_Click"
-                                                  Foreground="{DynamicResource AccentColorBrush}"
-                                                  Tag="Description">
-                                Description
-                            </GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
+                        <GridViewColumn Width="75" DisplayMemberBinding="{Binding IssueState, Converter={StaticResource IssueStateConverter}}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Click="ListViewColumnHeader_Click"
+                                                      Foreground="{DynamicResource AccentColorBrush}"
+                                                      Tag="IssueState">
+                                    State
+                                </GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
 
-                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Priority, Converter={StaticResource PriorityConverter}}">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Click="ListViewColumnHeader_Click"
-                                                  Foreground="{DynamicResource AccentColorBrush}"
-                                                  Tag="Priority">
-                                Priority
-                            </GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
+                        <GridViewColumn Width="{Binding ElementName=listviewIssues, Path=ActualWidth, Converter={StaticResource ListviewWidthConverter}}" DisplayMemberBinding="{Binding Description}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Click="ListViewColumnHeader_Click"
+                                                      Foreground="{DynamicResource AccentColorBrush}"
+                                                      Tag="Description">
+                                    Description
+                                </GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
 
-                    <GridViewColumn Width="100" DisplayMemberBinding="{Binding Severity, Converter={StaticResource SeverityConverter}}">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Click="ListViewColumnHeader_Click"
-                                                  Foreground="{DynamicResource AccentColorBrush}"
-                                                  Tag="Severity">
-                                Severity
-                            </GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding Priority, Converter={StaticResource PriorityConverter}}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Click="ListViewColumnHeader_Click"
+                                                      Foreground="{DynamicResource AccentColorBrush}"
+                                                      Tag="Priority">
+                                    Priority
+                                </GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
 
-                    <GridViewColumn Width="96" DisplayMemberBinding="{Binding UserCreated}">
-                        <GridViewColumn.Header>
-                            <GridViewColumnHeader Click="ListViewColumnHeader_Click"
-                                                  Foreground="{DynamicResource AccentColorBrush}"
-                                                  Tag="UserCreated">
-                                Created By
-                            </GridViewColumnHeader>
-                        </GridViewColumn.Header>
-                    </GridViewColumn>
+                        <GridViewColumn Width="100" DisplayMemberBinding="{Binding Severity, Converter={StaticResource SeverityConverter}}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Click="ListViewColumnHeader_Click"
+                                                      Foreground="{DynamicResource AccentColorBrush}"
+                                                      Tag="Severity">
+                                    Severity
+                                </GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
 
-                </GridView>
-            </ListView.View>
-        </ListView>
+                        <GridViewColumn Width="96" DisplayMemberBinding="{Binding UserCreated}">
+                            <GridViewColumn.Header>
+                                <GridViewColumnHeader Click="ListViewColumnHeader_Click"
+                                                      Foreground="{DynamicResource AccentColorBrush}"
+                                                      Tag="UserCreated">
+                                    Created By
+                                </GridViewColumnHeader>
+                            </GridViewColumn.Header>
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <!--  No items indicator  -->
+        <Grid Visibility="{Binding AllIssues, Converter={StaticResource InverseListCountToVisConverter}}">
+
+            <TextBlock Width="600"
+                       Height="350"
+                       Margin="0,100,0,0"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="28"
+                       TextWrapping="Wrap"><Run Text="Looks kinda empty in here." />
+                <LineBreak /><Run />
+                <LineBreak /><Run Text="Use these buttons to get started by adding some bugs or change requests." />
+                <LineBreak /><Run />
+                <LineBreak /><Run Text="Be careful though, you can't delete issues!" />
+            </TextBlock>
+            <Path Width="138"
+                  Height="265"
+                  Margin="728,10,0,0"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  Data="M782,702 C815.57968,662.31492 830.9259,615.93008 854,568.5 884.06464,506.70045 909.59168,442.81052 939.5,381 969.35374,319.30228 996.25692,255.90513 1031,198 1042.3596,241.37285 1049,261.97491 1049,301.5 1012.0216,292.25539 975.90833,256.5 938,256.5 952.83844,241.66156 994.61477,225.03874 1014.5,216"
+                  Stretch="Fill"
+                  Stroke="Black" />
+
+        </Grid>
     </Grid>
+
 </UserControl>

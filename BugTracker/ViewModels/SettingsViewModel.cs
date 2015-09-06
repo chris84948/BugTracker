@@ -7,11 +7,14 @@ using BugTracker.MVVM;
 using BugTracker.Properties;
 using MahApps.Metro;
 using System.Windows;
+using System.Windows.Input;
 
 namespace BugTracker.ViewModels
 {
     class SettingsViewModel : ObservableObject
     {
+        public ICommand MoveDBCommand { get { return new RelayCommand(MoveDatabase, () => true); } }
+
         private bool _lightTheme;
         public bool LightTheme
         {
@@ -24,9 +27,22 @@ namespace BugTracker.ViewModels
             }
         }
 
+        private string _dbLocation;
+        public string DBLocation
+        {
+            get { return _dbLocation; }
+            set
+            {
+                _dbLocation = value;
+                OnPropertyChanged(() => DBLocation);
+            }
+        }
+
         public SettingsViewModel()
         {
             LightTheme = Settings.Default.LightTheme;
+
+            DBLocation = Settings.Default.DBLocation;
         }
 
         private void UpdateThemeAndSave(bool lightTheme)
@@ -37,6 +53,11 @@ namespace BugTracker.ViewModels
 
             Settings.Default.LightTheme = lightTheme;
             Settings.Default.Save();
+        }
+
+        private void MoveDatabase()
+        {
+
         }
     }
 }

@@ -36,26 +36,14 @@ namespace BugTracker.Common
 
         public string ValidateProperty(string propertyName, string propertyValue, int issueState)
         {
-            if (!validationList.Contains(propertyName)) validationList.Add(propertyName);
-
             if (validateOnIssueOpenFields.Contains(propertyName) ||
                 (validateOnIssueClosedFields.Contains(propertyName) && issueState == (int)eIssueState.Closed))
             {
+                if (!validationList.Contains(propertyName)) validationList.Add(propertyName);
+
                 if (String.IsNullOrEmpty(propertyValue))
                 {
                     return "Field cannot be empty";
-                }
-                else
-                {
-                    validationList.Remove(propertyName);
-                    return null;
-                }
-            }
-            else if (propertyName == "IssueResolution" && issueState == (int)eIssueState.Closed)
-            {
-                if (propertyValue == "0")
-                {
-                    return "Issue resolution must be selected to close the bug";
                 }
                 else
                 {
