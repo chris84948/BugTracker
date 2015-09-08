@@ -44,7 +44,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MahApps.Metro">
-      <HintPath>C:\Users\Chris\Documents\GitHub\MahApps.Metro\MahApps.Metro\bin\Debug\NET45\MahApps.Metro.dll</HintPath>
+      <HintPath>H:\Visual Studio 2013\Projects\MahApps.Metro-master\MahApps.Metro\bin\Debug\NET45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -133,6 +133,9 @@
     <Compile Include="Views\ChangeRequestView.xaml.cs">
       <DependentUpon>ChangeRequestView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomDialogs\DialogSQLiteChange.xaml.cs">
+      <DependentUpon>DialogSQLiteChange.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\IssueView.xaml.cs">
       <DependentUpon>IssueView.xaml</DependentUpon>
     </Compile>
@@ -179,6 +182,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChangeRequestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomDialogs\DialogSQLiteChange.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

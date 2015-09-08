@@ -44,7 +44,7 @@ namespace BugTracker.DataAccess
                 new SQLiteCommand(SQLFixedQueries.CreateTables(), conn).ExecuteNonQuery();
                 new SQLiteCommand(SQLFixedQueries.CreateViews(), conn).ExecuteNonQuery();
                 new SQLiteCommand(SQLFixedQueries.CreateDefaultData(), conn).ExecuteNonQuery();
-                //new SQLiteCommand(SQLFixedQueries.InsertTestData(), conn).ExecuteNonQuery(); //TODO remove this when releasing
+                new SQLiteCommand(SQLFixedQueries.InsertTestData(), conn).ExecuteNonQuery(); //TODO remove this when releasing
             }
         }
 
