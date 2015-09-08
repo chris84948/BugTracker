@@ -9,7 +9,7 @@ using System.ComponentModel;
 
 namespace BugTracker.ViewModels
 {
-    class IssueViewModel : ScreenBase, IDataErrorInfo
+    public class IssueViewModel : ScreenBase, IDataErrorInfo
     {
         public Issue Issue;
         protected bool saving;

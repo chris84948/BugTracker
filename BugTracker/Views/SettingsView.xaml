@@ -13,10 +13,6 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
     </UserControl.Resources>
 
-    <UserControl.DataContext>
-        <vm:SettingsViewModel />
-    </UserControl.DataContext>
-
     <Grid Margin="100,0,100,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

@@ -33,7 +33,7 @@
                           Position="Top"
                           Theme="Accent"
                           TitleVisibility="Collapsed">
-                <view:SettingsView />
+                <ContentControl Content="{Binding Settings}" />
             </metro:Flyout>
         </metro:FlyoutsControl>
     </metro:MetroWindow.Flyouts>

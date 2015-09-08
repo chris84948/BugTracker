@@ -7,7 +7,7 @@ using BugTracker.Common;
 
 namespace BugTracker.Model
 {
-    class Issue
+    public class Issue
     {
         [SearchAttribute(true)]
         [SQLFieldAttribute("ID")]

@@ -7,7 +7,7 @@ using BugTracker.Common;
 
 namespace BugTracker.Model
 {
-    class ChangeRequest
+    public class ChangeRequest
     {
         [SQLFieldAttribute("ID")]
         public int ID;

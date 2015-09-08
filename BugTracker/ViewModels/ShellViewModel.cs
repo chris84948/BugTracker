@@ -14,6 +14,7 @@ using BugTracker.Properties;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace BugTracker.ViewModels
 {
@@ -35,6 +36,17 @@ namespace BugTracker.ViewModels
             {
                 _tabs = value;
                 OnPropertyChanged(() => Tabs);
+            }
+        }
+
+        private SettingsViewModel _settings;
+        public SettingsViewModel Settings
+        {
+            get { return _settings; }
+            set
+            {
+                _settings = value;
+                OnPropertyChanged(() => Settings);
             }
         }
 
@@ -102,6 +114,8 @@ namespace BugTracker.ViewModels
             Application.Current.MainWindow.Closing += new CancelEventHandler(MainWindow_Closing);
 
             dataAccess = new SQLiteController();
+
+            Settings = new SettingsViewModel(dataAccess);
 
             Tabs = new ObservableCollection<ScreenBase>();
             Tabs.Add(new TabAllIssuesViewModel(messenger, dialogCoordinator, dataAccess));

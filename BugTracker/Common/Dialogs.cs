@@ -37,5 +37,20 @@ namespace BugTracker.Common
 
             return result;
         }
+
+        public static string GetNewDatabaseLocation(string currentDBLocation)
+        {
+            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+
+            dlg.InitialDirectory = currentDBLocation;
+            dlg.DefaultExt = ".db";
+            dlg.Filter = "SQLite DB Files (*.db)|*.db";
+            Nullable<bool> result = dlg.ShowDialog();
+
+            if (result == true)
+                return dlg.FileName;
+            else
+                return "";
+        }
     }
 }
