@@ -122,7 +122,7 @@
                                Fill="{Binding Path=Foreground,
                                               ElementName=SettingsText}">
                         <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_add_multiple}" />
+                            <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_settings}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
                     <TextBlock Name="SettingsText"
