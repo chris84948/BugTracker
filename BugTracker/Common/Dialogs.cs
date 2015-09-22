@@ -16,7 +16,7 @@ namespace BugTracker.Common
             {
                 AffirmativeButtonText = "Save",
                 NegativeButtonText = "Discard",
-                FirstAuxiliaryButtonText = "Cancel",
+                FirstAuxiliaryButtonText = "Cancel"
             };
             MessageDialogResult result = await dialogCoordinator.
                     ShowMessageAsync(tab, "What do you want to do with your changes?", "", MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary, settings);
@@ -30,27 +30,12 @@ namespace BugTracker.Common
             {
                 AffirmativeButtonText = "   Save and close   ",
                 NegativeButtonText = "   Close without saving   ",
-                FirstAuxiliaryButtonText = "Cancel",
+                FirstAuxiliaryButtonText = "Cancel"
             };
             MessageDialogResult result = await dialogCoordinator.
                     ShowMessageAsync(tab, "There are some unsaved changes. What do you want to do?", "", MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary, settings);
 
             return result;
-        }
-
-        public static string GetNewDatabaseLocation(string currentDBLocation)
-        {
-            Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
-
-            dlg.InitialDirectory = currentDBLocation;
-            dlg.DefaultExt = ".db";
-            dlg.Filter = "SQLite DB Files (*.db)|*.db";
-            Nullable<bool> result = dlg.ShowDialog();
-
-            if (result == true)
-                return dlg.FileName;
-            else
-                return "";
         }
     }
 }

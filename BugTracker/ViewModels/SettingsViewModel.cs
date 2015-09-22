@@ -15,8 +15,6 @@ namespace BugTracker.ViewModels
 {
     public class SettingsViewModel : ObservableObject
     {
-        public ICommand MoveDBCommand { get { return new RelayCommand(MoveDatabase, () => true); } }
-
         private IDataAccess dataAccess;
 
         private bool _lightTheme;
@@ -58,20 +56,6 @@ namespace BugTracker.ViewModels
 
             Settings.Default.LightTheme = lightTheme;
             Settings.Default.Save();
-        }
-
-        private void MoveDatabase()
-        {
-            string newDBLoc = Dialogs.GetNewDatabaseLocation(Settings.Default.DBLocation);
-
-            if (String.IsNullOrEmpty(newDBLoc)) return;
-
-            System.IO.File.Copy(Settings.Default.DBLocation, newDBLoc, overwrite:true);
-            DBLocation = newDBLoc;
-            Settings.Default.DBLocation = newDBLoc;
-            Settings.Default.Save();
-
-            dataAccess.UpdateLocation(newDBLoc);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls.Dialogs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,16 +11,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using MahApps.Metro.Controls.Dialogs;
 using System.Windows.Shapes;
 
 namespace BugTracker.CustomDialogs
 {
     /// <summary>
-    /// Interaction logic for DialogSQLiteChange.xaml
+    /// Interaction logic for DialogAddDatabase.xaml
     /// </summary>
-    public partial class DialogSQLiteChange : BaseMetroDialog
+    public partial class DialogAddDatabase : CustomDialog
     {
-        public DialogSQLiteChange()
+        public DialogAddDatabase()
         {
             InitializeComponent();
         }

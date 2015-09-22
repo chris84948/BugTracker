@@ -99,6 +99,9 @@
     <Compile Include="Converters\ListviewWidthConverter.cs" />
     <Compile Include="Converters\PriorityConverter.cs" />
     <Compile Include="Converters\SeverityConverter.cs" />
+    <Compile Include="CustomDialogs\DialogAddDatabase.xaml.cs">
+      <DependentUpon>DialogAddDatabase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataAccess\IDataAccess.cs" />
     <Compile Include="DataAccess\SQLFixedQueries.cs" />
     <Compile Include="DataAccess\SQLiteController.cs" />
@@ -133,9 +136,6 @@
     <Compile Include="Views\ChangeRequestView.xaml.cs">
       <DependentUpon>ChangeRequestView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CustomDialogs\DialogSQLiteChange.xaml.cs">
-      <DependentUpon>DialogSQLiteChange.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\IssueView.xaml.cs">
       <DependentUpon>IssueView.xaml</DependentUpon>
     </Compile>
@@ -149,6 +149,10 @@
     <Compile Include="Views\TabAllIssuesView.xaml.cs">
       <DependentUpon>TabAllIssuesView.xaml</DependentUpon>
     </Compile>
+    <Page Include="CustomDialogs\DialogAddDatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\CustomStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -182,10 +186,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ChangeRequestView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CustomDialogs\DialogSQLiteChange.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -13,14 +13,14 @@
         <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
     </UserControl.Resources>
 
-    <Grid Margin="100,0,100,10">
+    <Grid Margin="50,0,50,10">
         <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="2.5*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -36,20 +36,11 @@
                      VerticalAlignment="Center"
                      IsReadOnly="True"
                      Text="{Binding DBLocation}" />
-            <TextBlock Margin="15,0,0,0" VerticalAlignment="Center">
-                <Hyperlink Command="{Binding MoveDBCommand}"
-                           FontFamily="{StaticResource UbuntuRegular}"
-                           FontSize="{StaticResource FontSize}"
-                           Foreground="{DynamicResource WhiteColorBrush}"
-                           TextDecorations="None">
-                    MOVE
-                </Hyperlink>
-            </TextBlock>
         </StackPanel>
 
         <StackPanel Grid.Row="1"
                     Grid.Column="1"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     Orientation="Horizontal">
             <TextBlock VerticalAlignment="Center"
                        Foreground="{DynamicResource WhiteBrush}"
@@ -64,7 +55,12 @@
                                 Foreground="{DynamicResource WhiteBrush}"
                                 IsChecked="{Binding LightTheme}"
                                 OffLabel="Dark"
-                                OnLabel="Light" />
+                                OnLabel="Dark" />
+            <TextBlock VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       Foreground="{DynamicResource WhiteBrush}"
+                       Padding="1,0,0,1"
+                       Text="Light" />
         </StackPanel>
     </Grid>
 </UserControl>
