@@ -167,7 +167,7 @@
         </Grid>
 
         <!--  No items indicator  -->
-        <Grid Visibility="{Binding ShowNoItemsIndicator, Converter={StaticResource BoolToHidden}, FallbackValue=Hidden}">
+        <Grid Visibility="{Binding ShowNoItemsIndicator, Converter={StaticResource BoolToHidden}, FallbackValue=Hidden}" Background="White">
 
             <TextBlock Width="600"
                        Height="350"
