@@ -44,7 +44,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MahApps.Metro">
-      <HintPath>C:\Users\Chris\Documents\GitHub\MahApps.Metro\MahApps.Metro\bin\Debug\NET45\MahApps.Metro.dll</HintPath>
+      <HintPath>H:\Visual Studio 2013\Projects\MahApps.Metro-master\MahApps.Metro\bin\Debug\NET45\MahApps.Metro.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -99,6 +99,9 @@
     <Compile Include="Converters\ListviewWidthConverter.cs" />
     <Compile Include="Converters\PriorityConverter.cs" />
     <Compile Include="Converters\SeverityConverter.cs" />
+    <Compile Include="CustomDialogs\DialogAddDatabase.xaml.cs">
+      <DependentUpon>DialogAddDatabase.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DataAccess\IDataAccess.cs" />
     <Compile Include="DataAccess\SQLFixedQueries.cs" />
     <Compile Include="DataAccess\SQLiteController.cs" />
@@ -146,6 +149,10 @@
     <Compile Include="Views\TabAllIssuesView.xaml.cs">
       <DependentUpon>TabAllIssuesView.xaml</DependentUpon>
     </Compile>
+    <Page Include="CustomDialogs\DialogAddDatabase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\CustomStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

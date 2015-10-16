@@ -84,15 +84,17 @@ namespace BugTracker.DataAccess
 
             builder.Append("(");
 
-            foreach (string field in sqlFields)
+            foreach (string filter in generalFilters)
             {
-                foreach (string filter in generalFilters)
+                foreach (string field in sqlFields)
                 {
                     builder.AppendLine(field + " LIKE '%" + filter + "%' OR ");
                 }
+
+                builder.Remove(builder.Length - 5, 4).Append(") AND (");
             }
 
-            builder.Remove(builder.Length - 5, 4).AppendLine(")");
+            builder.Length -= 6;
 
             return builder.ToString();
         }

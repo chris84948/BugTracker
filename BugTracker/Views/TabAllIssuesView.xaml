@@ -13,7 +13,8 @@
     <Grid>
 
         <!--  Listview showing all items  -->
-        <Grid Margin="40,20" Visibility="{Binding HasItems, ElementName=listviewIssues, Converter={StaticResource BoolToHidden}}">
+        <Grid Margin="40,20">
+            <!--  Visibility="{Binding AllIssues, Converter={StaticResource ListCountToVisConverter}}">  -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="*" />
@@ -166,7 +167,7 @@
         </Grid>
 
         <!--  No items indicator  -->
-        <Grid Visibility="{Binding HasItems, ElementName=listviewIssues, Converter={StaticResource InverseBoolToHidden}}">
+        <Grid Visibility="{Binding ShowNoItemsIndicator, Converter={StaticResource BoolToHidden}, FallbackValue=Hidden}">
 
             <TextBlock Width="600"
                        Height="350"

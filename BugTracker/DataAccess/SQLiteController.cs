@@ -21,9 +21,6 @@ namespace BugTracker.DataAccess
         private string connectionString;
         private SQLiteConnection conn;
 
-        /// <summary>
-        /// Constructor for controller
-        /// </summary>
         public SQLiteController()
         {
             if (String.IsNullOrEmpty(Settings.Default.DBLocation))
@@ -36,9 +33,6 @@ namespace BugTracker.DataAccess
                 CreateDatabase();
         }
 
-        /// <summary>
-        /// Creates the database and table if necessary
-        /// </summary>
         private void CreateDatabase()
         {
             SQLiteConnection.CreateFile(Settings.Default.DBLocation);
@@ -50,8 +44,13 @@ namespace BugTracker.DataAccess
                 new SQLiteCommand(SQLFixedQueries.CreateTables(), conn).ExecuteNonQuery();
                 new SQLiteCommand(SQLFixedQueries.CreateViews(), conn).ExecuteNonQuery();
                 new SQLiteCommand(SQLFixedQueries.CreateDefaultData(), conn).ExecuteNonQuery();
-                //new SQLiteCommand(SQLFixedQueries.InsertTestData(), conn).ExecuteNonQuery(); //TODO remove this when releasing
+                new SQLiteCommand(SQLFixedQueries.InsertTestData(), conn).ExecuteNonQuery(); //TODO remove this when releasing
             }
+        }
+
+        void IDataAccess.UpdateLocation(string newLocation)
+        {
+            connectionString = String.Format("Data Source={0};Version=3;", Settings.Default.DBLocation);
         }
 
         List<IssueViewModel> IDataAccess.GetAllIssues(string filter)
@@ -314,6 +313,9 @@ namespace BugTracker.DataAccess
 
         private DateTime? ConvertToNullableDateTime(object datetime)
         {
+            if (datetime == DBNull.Value)
+                return null;
+
             try
             {
                 return Convert.ToDateTime(datetime);

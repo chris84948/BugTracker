@@ -16,7 +16,7 @@ namespace BugTracker.Common
             {
                 AffirmativeButtonText = "Save",
                 NegativeButtonText = "Discard",
-                FirstAuxiliaryButtonText = "Cancel",
+                FirstAuxiliaryButtonText = "Cancel"
             };
             MessageDialogResult result = await dialogCoordinator.
                     ShowMessageAsync(tab, "What do you want to do with your changes?", "", MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary, settings);
@@ -30,7 +30,7 @@ namespace BugTracker.Common
             {
                 AffirmativeButtonText = "   Save and close   ",
                 NegativeButtonText = "   Close without saving   ",
-                FirstAuxiliaryButtonText = "Cancel",
+                FirstAuxiliaryButtonText = "Cancel"
             };
             MessageDialogResult result = await dialogCoordinator.
                     ShowMessageAsync(tab, "There are some unsaved changes. What do you want to do?", "", MessageDialogStyle.AffirmativeAndNegativeAndSingleAuxiliary, settings);

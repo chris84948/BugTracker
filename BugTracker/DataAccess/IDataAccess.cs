@@ -8,8 +8,9 @@ using BugTracker.ViewModels;
 
 namespace BugTracker.DataAccess
 {
-    interface IDataAccess
+    public interface IDataAccess
     {
+        void UpdateLocation(string newLocation);
         List<IssueViewModel> GetAllIssues(string filter);
         IssueViewModel GetIssue(int id);
         Bug GetBug(int id);
