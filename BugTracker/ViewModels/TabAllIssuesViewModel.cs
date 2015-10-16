@@ -41,6 +41,7 @@ namespace BugTracker.ViewModels
             }
         }
 
+
         private string _filter;
         public string Filter
         {
@@ -50,10 +51,25 @@ namespace BugTracker.ViewModels
                 _filter = value;
                 OnPropertyChanged(() => Filter);
                 ResetTimer();
+
+                ShowNoItemsIndicator = string.IsNullOrEmpty(_filter) & AllIssues.Count == 0;
+                Console.WriteLine("show" + ShowNoItemsIndicator.ToString());
+
             }
         }
 
-        public TabAllIssuesViewModel(Messenger messenger, DialogCoordinator dialogCoordinator, IDataAccess dataAccess) 
+        private bool _ShowNoItemsIndicator;
+        public bool ShowNoItemsIndicator
+        {
+            get { return _ShowNoItemsIndicator; }
+            set
+            {
+                _ShowNoItemsIndicator = value;
+                OnPropertyChanged(() => ShowNoItemsIndicator);
+            }
+        }
+
+        public TabAllIssuesViewModel(Messenger messenger, DialogCoordinator dialogCoordinator, IDataAccess dataAccess)
         {
             this.messenger = messenger;
             this.dialogCoordinator = dialogCoordinator;
@@ -75,7 +91,7 @@ namespace BugTracker.ViewModels
         {
             DropdownCommands = new List<TitledCommand>();
 
-            DropdownCommands.Add(new TitledCommand() { Title = "ID Number", Command = new RelayCommand(AddIDFilter, () => true)});
+            DropdownCommands.Add(new TitledCommand() { Title = "ID Number", Command = new RelayCommand(AddIDFilter, () => true) });
             DropdownCommands.Add(new TitledCommand() { Title = "Description", Command = new RelayCommand(AddDescriptionFilter, () => true) });
             DropdownCommands.Add(new TitledCommand() { Title = "Created By", Command = new RelayCommand(AddUserCreatedFilter, () => true) });
             DropdownCommands.Add(new TitledCommand() { Title = "Closed By", Command = new RelayCommand(AddUserClosedFilter, () => true) });
